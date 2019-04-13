@@ -1,0 +1,46 @@
+<h2 class="center-align">To-Do Space</h2>
+
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="todo_name" name="todo_name" type="text" [(ngModel)]="todoTitle" data-length="25">
+        <label for="todo_name">Add a task</label>
+        <span class="helper-text">Enter the task you want to do here</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="todo-description" name="todo-description" class="materialize-textarea"
+          [(ngModel)]="todoDescription" data-length="250"></textarea>
+        <label for="todo_description">Describe the task</label>
+        <span class="helper-text">Describe the task you want to do here</span>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="col s12 center-align">
+        <button class="btn waves-effect waves-light teal" type="submit" name="action"
+          (click)="addToDo()">Submit</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><hr><br>
+
+<div class="row">
+  <div class="col s12 m6" *ngFor="let todo of todos">
+    <div class="card blue-grey darken-1 hoverable">
+      <div class="card-content white-text">
+        <span class="card-title">{{ todo.title }}</span>
+        <blockquote>{{ todo.description }}</blockquote>
+      </div>
+      <div class="card-action right-align">
+        <a class="btn-floating btn-small waves-effect waves-light teal" (click)="deleteToDo(todo.id)">&times;</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 
-import { ToDo } from '../../interfaces/todo';
+import {
+  ToDo
+} from '../../interfaces/todo';
 
 @Component({
   selector: 'app-todos',
@@ -10,39 +15,46 @@ import { ToDo } from '../../interfaces/todo';
 export class TodosComponent implements OnInit {
 
   todos: ToDo[];
+  completedToDos: ToDo[];
   todoTitle: string;
   todoDescription: string;
   todoID: number;
+  todoTemplate: boolean;
+  completedCount: number;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+
+    this.todos = [{
+      id: 1,
+      title: 'Demo To-Do',
+      description: 'This is a dummy task one which I plan to never do as it was never meant to happen on 25th July',
+      completed: false,
+      editing: false
+    }, {
+      id: 2,
+      title: 'Demo To-Do 2',
+      description: 'This is a dummy task one which I plan to never do as it was never meant to happen on 25th July',
+      completed: false,
+      editing: false
+    }];
+
+    this.completedToDos = [];
 
     this.todoTitle = '';
 
     this.todoDescription = '';
 
-    this.todoID = 3;
+    this.todoID = this.todos.length + 1;
 
-    this.todos = [
-      {
-        id: 1,
-        title: 'Demo To-Do',
-        description: 'This is a dummy task one which I plan to never do as it was never meant to happen on 25th July',
-        completed: false,
-        editing: false
-      }, {
-        id: 2,
-        title: 'Demo To-Do 2',
-        description: 'This is a dummy task one which I plan to never do as it was never meant to happen on 25th July',
-        completed: false,
-        editing: false
-      }
-    ];
+    this.todoTemplate = false;
+
+    this.completedCount = 0;
 
   }
 
-  addToDo = () : void => {
+  addToDo = (): void => {
 
     if (this.todoTitle.trim().length === 0) {
       return;
@@ -58,13 +70,52 @@ export class TodosComponent implements OnInit {
 
     this.todoTitle = '';
     this.todoDescription = '';
+    this.todoTemplate = false;
     this.todoID++;
   }
 
-  deleteToDo = (id: number) : void => {
+  editToDo = (todo: ToDo): void => {
 
-    this.todos = this.todos.filter(todo => todo.id !== id);
-
+    todo.editing = true;
   }
 
+  completeEditingToDo = (todo: ToDo): void => {
+
+    if (todo.title.trim().length === 0) {
+      return;
+    }
+
+    this.todos.forEach(originaltodo => {
+      if (originaltodo.id === todo.id) {
+        todo.editing = false;
+        return todo;
+      }
+    });
+  }
+
+  completeToDo = (id: number): void => {
+
+    this.todos.forEach(todo => {
+      if (id === todo.id) {
+        todo.completed = true;
+        this.completedToDos.push(todo);
+        this.todos.splice(this.todos.indexOf(todo), 1);
+      }
+    });
+    this.completedCount++;
+  }
+
+  deleteToDo = (id: number): void => {
+
+    this.todos = this.todos.filter(todo => todo.id !== id);
+  }
+
+  visibleToDo = (): void => {
+
+    if (this.todoTitle.trim().length === 0) {
+      this.todoTemplate = false;
+    } else {
+      this.todoTemplate = true;
+    }
+  }
 }

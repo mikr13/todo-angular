@@ -1,4 +1,4 @@
-<h3 class="center-align">To-Do Space</h3>
+<h4 class="center-align">To-Do Space</h4>
 
 <div class="row">
   <div class="col s12">
@@ -33,7 +33,28 @@
 <hr>
 <br>
 <div class="collection">
-  <a href="#!" class="collection-item"><span class="new badge" data-badge-caption="Completed">{{ completedCount }}</span>Completed</a>
+  <a class="collection-item waves-effect waves-light modal-trigger" href="#completedToDos"><span
+      class="new badge" data-badge-caption="completed">{{ completedCount }}</span>Completed</a>
+
+  <!-- Modal Structure -->
+  <div id="completedToDos" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h3 class="header">Completed To-Dos</h3>
+      <ul class="collection" *ngFor="let todo of completedToDos">
+        <li class="collection-item avatar">
+          <span class="title">{{ todo.title }}</span>
+          <p>{{ todo.description }}</p>
+          <a href="#!" class="secondary-content">
+              <a class="btn-floating btn-small waves-effect waves-light blue-grey">★</a>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a class="btn-floating btn-small modal-close waves-effect waves-light red">&times;</a>
+    </div>
+  </div>
+
 </div>
 
 <div class="row">

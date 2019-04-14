@@ -21,6 +21,7 @@ export class TodosComponent implements OnInit {
   todoID: number;
   todoTemplate: boolean;
   completedCount: number;
+  enableCompletedArea: boolean;
 
   constructor() {}
 
@@ -52,6 +53,7 @@ export class TodosComponent implements OnInit {
 
     this.completedCount = 0;
 
+    this.enableCompletedArea = false;
   }
 
   addToDo = (): void => {
@@ -103,6 +105,7 @@ export class TodosComponent implements OnInit {
       }
     });
     this.completedCount++;
+    this.enableCompletedArea = true;
   }
 
   deleteToDo = (id: number): void => {

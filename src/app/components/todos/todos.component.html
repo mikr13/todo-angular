@@ -33,31 +33,31 @@
 <hr>
 <br>
 <div class="collection">
-  <a class="collection-item waves-effect waves-light modal-trigger" href="#completedToDos"><span
-      class="new badge" data-badge-caption="completed">{{ completedCount }}</span>Completed</a>
-
-  <!-- Modal Structure -->
-  <div id="completedToDos" class="modal bottom-sheet">
-    <div class="modal-content">
-      <h3 class="header">Completed To-Dos</h3>
-      <ul class="collection" *ngFor="let todo of completedToDos">
-        <li class="collection-item avatar">
-          <span class="title">{{ todo.title }}</span>
-          <p>{{ todo.description }}</p>
-          <a href="#!" class="secondary-content">
-              <a class="btn-floating btn-small waves-effect waves-light blue-grey">★</a>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="modal-footer">
-      <a class="btn-floating btn-small modal-close waves-effect waves-light red">&times;</a>
-    </div>
-  </div>
-
+  <a class="collection-item waves-effect waves-light modal-trigger" href="#completedToDos"><span class="new badge"
+      data-badge-caption="completed">{{ completedCount }}</span>Completed</a>
+  <a href="#todos-area" class="collection-item"><span class="new badge blue-grey" data-badge-caption="active">{{ todos.length }}</span>Active</a>
 </div>
 
-<div class="row">
+<!-- Modal Structure -->
+<div id="completedToDos" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h3 class="header">Completed To-Dos</h3>
+    <ul class="collection">
+      <li class="collection-item avatar blue-grey darken-1" *ngFor="let todo of completedToDos">
+        <span class="title white-text strikethrough">{{ todo.title }}</span>
+        <p class="white-text strikethrough">{{ todo.description }}</p>
+        <a href="#!" class="secondary-content">
+          <a class="btn-floating btn-small waves-effect waves-light teal">★</a>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <a class="btn-floating btn-small modal-close waves-effect waves-light red">&times;</a>
+  </div>
+</div>
+
+<div class="row" id="todos-area">
   <div class="col s12 m6" *ngFor="let todo of todos">
     <div class="card blue-grey darken-1 hoverable" *ngIf="!todo.editing; else editingToDo">
       <div class="card-content white-text">
@@ -65,7 +65,8 @@
         <blockquote>{{ todo.description }}</blockquote>
       </div>
       <div class="card-action right-align">
-        <a class="btn-floating btn-small waves-effect waves-light teal" (click)="completeToDo(todo.id)">&#x2713;</a>
+        <a class="btn-floating btn-small waves-effect waves-light teal" (click)="completeToDo(todo.id)">&#x2713;
+        </a>
         &nbsp;
         <a class="btn-floating btn-small waves-effect waves-light blue-grey" (click)="editToDo(todo)">&#x270e;</a>
         &nbsp;
@@ -92,7 +93,7 @@
     </ng-template>
   </div>
 
-  <div class="col s12 m6" *ngIf="todoTemplate">
+  <div class="col s12 m6" *ngIf="todoTemplate" autofocus>
     <div class="card blue-grey darken-1 hoverable">
       <div class="card-content white-text">
         <span class="card-title">{{ todoTitle }}</span>
